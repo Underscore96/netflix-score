@@ -34,6 +34,16 @@ class AppController {
 
     renderShows(){
 
+        if (this.orderMethod = this.shows.sort((s1, s2) => s1.upVotes + s2.upVotes)){
+            
+
+
+        } else if (this.orderMethod = this.shows.sort((s2, s1) => s2.downVotes - s1.downVotes)){
+
+        }}
+         
+
+
 
         const btnContainer = document.getElementById('btn-container');
 
@@ -103,18 +113,27 @@ class AppController {
             
         }
     }
-    upvoteShow(show){
-        DBService.upvote(show).then(show => {
+    upvoteShow(show) {
+        if(!this.isVoting){
+            this.isVoting = true;
+         DBService.upvote(show).then(show => {
             this.renderShows();
+            this.isVoting = false;
 
-        })
+          });
+        }
     }
 
 
     downvoteShow(show){
-        DBService.downvote(show).then(show => {
+        if(!this.isVoting){
+            this.isVoting = true;
+        DBService.upvote(show).then(show => {
             this.renderShows();
+            this.isVoting = false;
+
         })
+        
     }
 
 
@@ -140,4 +159,4 @@ class AppController {
 
 
 
-}
+};
